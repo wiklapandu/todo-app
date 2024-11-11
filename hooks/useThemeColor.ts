@@ -20,3 +20,22 @@ export function useThemeColor(
     return Colors[theme][colorName];
   }
 }
+
+/**
+ * 
+ * @param type 
+ */ 
+export function colorBorderTheme(type: 'error' | 'warning' | 'success' | 'primary')
+{
+  switch (type) {
+    case 'error':
+      return 'border-l-red-500';
+    case 'warning':
+      return 'border-l-yellow-500';
+    case 'success':
+      return 'border-l-green-500';
+    case 'primary':
+    default:
+      return 'border-l-blue-500';
+  }
+}

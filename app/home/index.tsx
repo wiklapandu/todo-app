@@ -4,136 +4,56 @@ import { Image } from 'expo-image'
 import { ThemedView } from '@/components/ThemedView';
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import CardPrimary from '@/components/cards/CardPrimary';
+import CardSecondary from '@/components/cards/CardSecondary';
 
 type ItemProps = {
-  id: number;
+  id: string;
   title: string;
   status: string;
-}
-
-const ItemRender = ({ item, index, setData }: { item: ItemProps, index: number, setData: (items: ItemProps[] | ((items: ItemProps[]) => ItemProps[])) => void }) => {
-  const colors = ['border-l-red-500', 'border-l-blue-500', 'border-l-orange-500', 'border-l-green-500'];
-  const random = Math.floor(Math.random() * colors.length);
-  return <TouchableOpacity className={`mb-3 border-2 border-y-gray-200 border-r-gray-200 rounded-xl border-l-4 ${colors[random]} p-4 bg-white`} onPress={() => {
-    // confirm('Are you sure?')
-    const latestStatus = item.status;
-    const newStatus = latestStatus == 'done' ? 'ongoing' : 'done';
-    setData(
-      (items: ItemProps[]): ItemProps[] => (items.map((data: ItemProps): ItemProps => data.id === item.id ? { ...item, status: newStatus } : data))
-    )
-  }}>
-    <View className='flex flex-row items-center border-b-[.5px] border-b-gray-500 pb-4 mb-2'>
-      <View className='mr-auto w-4/5'>
-        <Text className={'text-xl' + (item.status == 'done' ? ' line-through' : '')}>{item.title}</Text>
-        <Text className={'text-md text-gray-500'}>Maxime totam odit. Et dolor...</Text>
-      </View>
-      <Ionicons name={item.status != 'done' ? 'checkmark-circle-outline' : 'checkmark-circle'} size={25} color={item.status != 'done' ? '#6b7280' : '#3b82f6'} />
-    </View>
-    <View>
-      <Text className='text-gray-500'>Today 11:25 PM</Text>
-    </View>
-  </TouchableOpacity>
+  description: string;
+  color?: 'error' | 'warning' | 'success' | 'primary';
+  created_at: string;
 }
 
 export default function HomeScreen() {
   const [showCreate, setShowCreate] = useState(false);
+  const [showTodo, setShowTodo] = useState<ItemProps>();
+  const [colorShowTodo, setColorShowTodo] = useState<string>();
+  const [statusShowTodo, setStatusShowTodo] = useState<string>();
+
   const [data, setData] = useState<ItemProps[]>([
     {
-      "id": 0,
+      "id": "673201171d9304883c88a873",
+      "title": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
       "status": "ongoing",
-      "title": "laborum minim laboris"
+      "description": "Lorem ipsum odor amet, consectetuer adipiscing elit. Nam amet nibh in in ultricies enim. At praesent erat dictum nullam imperdiet tincidunt curae. Varius interdum nisi lacinia porta pulvinar praesent? Porttitor suspendisse justo efficitur penatibus lectus scelerisque. Tellus non sit netus felis ullamcorper metus cursus curabitur mi. Molestie potenti volutpat lectus cras aptent dapibus purus? Nullam ornare bibendum elit urna a. Torquent dapibus sapien sed natoque quisque volutpat mattis nullam. Leo eu primis malesuada facilisi dis ex lectus proin.\n\n\nEleifend duis ut venenatis malesuada phasellus et ultricies consectetur. Pharetra ante sed molestie primis convallis elit. Orci lectus lacinia elit tortor fames; magnis praesent. Senectus montes egestas dolor lacus turpis amet non condimentum est. Interdum et lacinia libero himenaeos nisl, parturient semper libero consectetur. Dolor natoque vehicula dis amet maecenas amet praesent varius egestas. Fames enim aenean suscipit mus ornare.",
+      "color": "error",
+      "created_at": "09-11-2024"
     },
     {
-      "id": 1,
+      "id": "673201171d9304883c88a874",
+      "title": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
       "status": "ongoing",
-      "title": "voluptate pariatur"
-    },
-    {
-      "id": 2,
-      "status": "ongoing",
-      "title": "consequat sit minim"
-    },
-    {
-      "id": 3,
-      "status": "ongoing",
-      "title": "proident ipsum consectetur amet cillum"
-    },
-    {
-      "id": 4,
-      "status": "ongoing",
-      "title": "exercitation non laborum eu et"
-    },
-    {
-      "id": 5,
-      "status": "ongoing",
-      "title": "excepteur ipsum ullamco aute culpa"
-    },
-    {
-      "id": 6,
-      "status": "ongoing",
-      "title": "ipsum dolore reprehenderit et laboris"
-    },
-    {
-      "id": 7,
-      "status": "ongoing",
-      "title": "dolor sint nostrud quis eu"
-    },
-    {
-      "id": 8,
-      "status": "ongoing",
-      "title": "est cupidatat nostrud sit exercitation"
-    },
-    {
-      "id": 9,
-      "status": "ongoing",
-      "title": "ut incididunt reprehenderit non aliqua"
-    },
-    {
-      "id": 10,
-      "status": "ongoing",
-      "title": "commodo cillum do in consequat"
-    },
-    {
-      "id": 11,
-      "status": "ongoing",
-      "title": "deserunt eu ut incididunt qui"
-    },
-    {
-      "id": 12,
-      "status": "ongoing",
-      "title": "exercitation officia adipisicing minim commodo"
-    },
-    {
-      "id": 13,
-      "status": "ongoing",
-      "title": "sint aliquip tempor in eiusmod"
-    },
-    {
-      "id": 14,
-      "status": "ongoing",
-      "title": "fugiat voluptate aliquip esse deserunt"
-    },
-    {
-      "id": 15,
-      "status": "ongoing",
-      "title": "ullamco officia irure commodo ut"
-    },
-    {
-      "id": 16,
-      "status": "ongoing",
-      "title": "nisi qui commodo culpa duis"
-    },
-    {
-      "id": 17,
-      "status": "ongoing",
-      "title": "nisi reprehenderit reprehenderit nostrud eu"
-    },
-    {
-      "id": 18,
-      "status": "ongoing",
-      "title": "fugiat est commodo officia excepteur"
+      "description": "Lorem ipsum odor amet, consectetuer adipiscing elit. Nam amet nibh in in ultricies enim. At praesent erat dictum nullam imperdiet tincidunt curae. Varius interdum nisi lacinia porta pulvinar praesent? Porttitor suspendisse justo efficitur penatibus lectus scelerisque. Tellus non sit netus felis ullamcorper metus cursus curabitur mi. Molestie potenti volutpat lectus cras aptent dapibus purus? Nullam ornare bibendum elit urna a. Torquent dapibus sapien sed natoque quisque volutpat mattis nullam. Leo eu primis malesuada facilisi dis ex lectus proin.\n\n\nEleifend duis ut venenatis malesuada phasellus et ultricies consectetur. Pharetra ante sed molestie primis convallis elit. Orci lectus lacinia elit tortor fames; magnis praesent. Senectus montes egestas dolor lacus turpis amet non condimentum est. Interdum et lacinia libero himenaeos nisl, parturient semper libero consectetur. Dolor natoque vehicula dis amet maecenas amet praesent varius egestas. Fames enim aenean suscipit mus ornare.",
+      "color": "primary",
+      "created_at": "10-11-2024"
     }
   ])
+
+  const sections = [
+    {
+      title: `On Progress`,
+      data: data.filter(item => item.status != 'done'),
+      length: data.filter(item => item.status != 'done').length,
+      component: CardPrimary
+    },
+    {
+      title: 'Completed',
+      data: data.filter(item => item.status == 'done'),
+      component: CardSecondary
+    }
+  ];
 
   return (
     <View className='flex-[1] p-4 px-6 translate-y-[25] bg-[#EDF0F7]'>
@@ -162,12 +82,17 @@ export default function HomeScreen() {
       </ThemedView>
 
       <ThemedView className='flex-1'>
-        <FlatList data={data}
-          renderItem={(item) => <ItemRender {...item} setData={setData} />}
-          ListHeaderComponent={<View className='flex flex-row w-full'>
-            <Text className='text-xl mb-3 font-medium'>Lists Todo</Text>
-            <Text className='ml-auto text-sm text-blue-600'>View More</Text>
-          </View>}
+        <FlatList
+          data={sections}
+          renderItem={({ item }) => (<View>
+          <FlatList data={item.data}
+            renderItem={(dataItem) => <item.component {...dataItem} setData={setData} setShowTodo={setShowTodo} />}
+            ListHeaderComponent={<View className='flex flex-row w-full'>
+              <Text className='text-xl mb-3 font-medium'>{item.title} {item.length ? (<Text className='text-gray-400 font-normal'>({item.length.toString().padStart(2, '0')})</Text>) : ''}</Text>
+              <Text className='ml-auto text-sm text-blue-600'>View More</Text>
+            </View>}
+          />
+          </View>)}
         />
       </ThemedView>
 
@@ -183,6 +108,119 @@ export default function HomeScreen() {
           </View>
         </TouchableOpacity>
       </ThemedView>
+
+      <Modal
+        transparent={true}
+        animationType='slide'
+        visible={showTodo != undefined}
+      >
+        <KeyboardAvoidingView
+          style={{flex: 1}}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+        >
+          <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)'}}>
+            <View className='h-3/4 bg-white mt-auto rounded-t-2xl p-8'>
+              <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps='handled'>
+                <View className='border-b border-b-gray-100 pb-6 mb-4'>
+                  <Text className='text-center text-xl'>{showTodo?.title}</Text>
+                </View>
+
+                <View className='mb-4'>
+                  <View className='mb-4'>
+                    <Text className='text-gray-800 font-medium mb-2 text-xl'>Description:</Text>
+                    <Text className='text-lg text-gray-500'>{showTodo?.description}</Text>
+                  </View>
+
+                  <View className='mb-4'>
+                    <Text className='text-gray-800 font-medium text-xl mb-4'>Color:</Text>
+                    <View className='flex flex-row gap-2'>
+                      <TouchableOpacity onPress={() => {
+                          setShowTodo((data) => {
+                            if (data) {
+                              data.color = 'error';
+                            }
+                            return data;
+                          });
+                        }} className={`w-14 h-14 border-2 border-red-500 bg-red-${showTodo?.color !== 'error' ? '200' : '500'} rounded-full`}></TouchableOpacity>
+                      <TouchableOpacity onPress={() => {
+                          setShowTodo((data) => {
+                            if (data) {
+                              data.color = 'primary';
+                            }
+                            return data;
+                          });
+                        }} className={`w-14 h-14 border-2 border-blue-500 bg-blue-${showTodo?.color !== 'primary' ? '200' : '500'} rounded-full`}></TouchableOpacity>
+                      <TouchableOpacity onPress={() => {
+                          setShowTodo((data) => {
+                            if (data) {
+                              data.color = 'success';
+                            }
+                            return data;
+                          });
+                        }} className={`w-14 h-14 border-2 border-green-500 bg-green-${showTodo?.color !== 'success' ? '200' : '500'} rounded-full`}></TouchableOpacity>
+                      <TouchableOpacity onPress={() => {
+                          setShowTodo((data) => {
+                            if(data) {
+                              data.color = 'warning';
+                            }
+                            return data;
+                          });
+                        }} className={`w-14 h-14 border-2 border-yellow-500 bg-yellow-${showTodo?.color !== 'warning' ? '200' : '500'} rounded-full`}></TouchableOpacity>
+                    </View>
+                  </View>
+
+                  <View className='mb-4'>
+                    <Text className='text-gray-800 font-medium text-xl mb-4'>Status:</Text>
+
+                    <View className='bg-gray-300 flex flex-row gap-1 p-2 rounded-xl'>
+                      <TouchableOpacity onPress={() => {
+                        setShowTodo((data) => {
+                          if (data) {
+                            data.status = 'ongoing';
+                          }
+                          return data;
+                        })
+                      }} className={`${showTodo?.status == 'ongoing' ? 'bg-blue-500' : ''} p-4 w-1/2 flex flex-row justify-center items-center rounded-xl`}>
+                        <Ionicons name='checkmark-circle-outline' color={showTodo?.status == 'ongoing' ? '#fff' : '#6b7280'} size={18} />
+                        <Text className={`${showTodo?.status == 'ongoing' ? 'text-white' : 'text-gray-500'} font-medium ml-2`}>On Going</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => {
+                        setShowTodo((data) => {
+                          if (data) {
+                            data.status = 'done';
+                          }
+                          return data;
+                        })
+                      }} className={`${showTodo?.status == 'done' ? 'bg-blue-500' : ''} p-4 w-1/2 flex flex-row justify-center items-center rounded-xl`}>
+                        <Ionicons name='checkmark-done-circle-outline' color={showTodo?.status == 'done' ? '#fff' : '#6b7280'} size={18} />
+                        <Text className={`${showTodo?.status == 'done' ? 'text-white' : 'text-gray-500'} font-medium ml-2`}>Done</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+
+                <View className='flex flex-row bottom-0 bg-white px-2 gap-x-2'>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowTodo(undefined);
+                    }}
+                    className='border bg-white border-blue-500 rounded-xl px-4 py-3 w-1/2'
+                  >
+                    <Text className='text-center text-blue-500'>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    className='border rounded-xl w-1/2 px-4 py-3 border-blue-500 bg-blue-500'
+                    style={{ shadowColor: '#3b82f6' }}
+                  >
+                    <Text className='text-center text-white'>Update</Text>
+                  </TouchableOpacity>
+                </View>
+              </ScrollView>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
 
       <Modal
         transparent={true}

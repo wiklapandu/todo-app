@@ -12,7 +12,7 @@ export function InputTextComponent({className, placeholder, focusClass, parentCl
     const [focus, setFocus] = useState(false);
     return (
         <ThemedView className={`mb-3 border p-3 border-gray-300 rounded-xl ${parentClass} ` + (focus ? focusClass : '')}>
-            <TextInput className={"py-3 px-5 " + className} placeholder={placeholder} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} {...otherProps}/>
+            <TextInput className={"px-5 " + className} placeholder={placeholder} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} {...otherProps}/>
         </ThemedView>
     )
 }
